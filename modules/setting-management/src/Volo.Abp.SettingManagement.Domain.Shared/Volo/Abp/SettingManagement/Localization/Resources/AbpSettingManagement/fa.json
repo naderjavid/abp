@@ -5,6 +5,16 @@
     "SuccessfullySaved": "با موفقیت ذخیره شد",
     "Permission:SettingManagement": "مدیریت تنظیمات",
     "Permission:Emailing": "تنظیمات ایمیل",
+    "Permission:EmailingTest": "تست ایمیل",
+    "SendTestEmail": "ارسال ایمیل آزمایشی",
+    "SenderEmailAddress": "آدرس ایمیل ارسال کننده",
+    "TargetEmailAddress": "آدرس ایمیل گیرنده",
+    "Subject": "موضوع",
+    "Body": "متن",
+    "TestEmailSubject": "تست ایمیل {0}",
+    "TestEmailBody": "متن ایمیل آزمایشی اینجا",
+    "SuccessfullySent": "با موفقیت ارسال گردید",
+    "Send": "ارسال",
     "Menu:Emailing": "تنظیمات ایمیل",
     "SmtpHost": "هاست",
     "SmtpPort": "پورت",
@@ -17,6 +27,8 @@
     "DefaultFromDisplayName": "نام نمایشی ارسال کننده پیش فرض",
     "Feature:SettingManagementGroup": "تنظیمات مدیریت",
     "Feature:SettingManagementEnable": "فعال کردن مدیریت تنظیمات",
-    "Feature:SettingManagementEnableDescription": "سیستم مدیریت تنظیمات را در برنامه فعال کنید."
+    "Feature:SettingManagementEnableDescription": "سیستم مدیریت تنظیمات را در برنامه فعال کنید.",
+    "Feature:AllowTenantsToChangeEmailSettings": "اجازه به تنت ها برای تغییر تنظیمات ایمیل.",
+    "Feature:AllowTenantsToChangeEmailSettingsDescription": "اجازه به تنت ها برای تغییر تنظیمات ایمیل."
   }
 }
