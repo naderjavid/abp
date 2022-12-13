@@ -19,6 +19,7 @@ using Volo.Abp.Cli.ProjectBuilding.Events;
 using Volo.Abp.Cli.ProjectBuilding.Templates.App;
 using Volo.Abp.Cli.ProjectBuilding.Templates.Microservice;
 using Volo.Abp.Cli.ProjectBuilding.Templates.Module;
+using Volo.Abp.Cli.ProjectBuilding.Templates.MvcModule;
 using Volo.Abp.Cli.Utils;
 using Volo.Abp.EventBus.Local;
 
@@ -38,6 +39,8 @@ public abstract class ProjectCreationCommandBase
     public ILogger<NewCommand> Logger { get; set; }
 
     public ThemePackageAdder ThemePackageAdder { get; }
+    
+    public AngularThemeConfigurer AngularThemeConfigurer { get; }
 
     public ProjectCreationCommandBase(
         ConnectionStringProvider connectionStringProvider,
@@ -49,7 +52,8 @@ public abstract class ProjectCreationCommandBase
         InitialMigrationCreator initialMigrationCreator,
         ThemePackageAdder themePackageAdder,
         ILocalEventBus eventBus,
-        IBundlingService bundlingService)
+        IBundlingService bundlingService, 
+        AngularThemeConfigurer angularThemeConfigurer)
     {
         _bundlingService = bundlingService;
         ConnectionStringProvider = connectionStringProvider;
@@ -61,6 +65,7 @@ public abstract class ProjectCreationCommandBase
         InitialMigrationCreator = initialMigrationCreator;
         EventBus = eventBus;
         ThemePackageAdder = themePackageAdder;
+        AngularThemeConfigurer = angularThemeConfigurer;
 
         Logger = NullLogger<NewCommand>.Instance;
     }
@@ -113,7 +118,7 @@ public abstract class ProjectCreationCommandBase
             Logger.LogInformation("DBMS: " + databaseManagementSystem);
         }
 
-        var uiFramework = GetUiFramework(commandLineArgs);
+        var uiFramework = GetUiFramework(commandLineArgs, template);
         if (uiFramework != UiFramework.NotSpecified)
         {
             Logger.LogInformation("UI Framework: " + uiFramework);
@@ -243,7 +248,7 @@ public abstract class ProjectCreationCommandBase
     {
         EventBus.PublishAsync(new ProjectCreationProgressEvent
         {
-            Message = "Extracting the solution archieve"
+            Message = "Unzipping the solution"
         }, false);
 
         using (var templateFileStream = new MemoryStream(project.ZipContent))
@@ -408,22 +413,24 @@ public abstract class ProjectCreationCommandBase
         }
     }
 
-    protected async Task RunBundleForBlazorWasmTemplateAsync(ProjectBuildArgs projectArgs)
+    protected async Task RunBundleForBlazorWasmOrMauiBlazorTemplateAsync(ProjectBuildArgs projectArgs)
     {
-        if (AppTemplateBase.IsAppTemplate(projectArgs.TemplateName) && projectArgs.UiFramework == UiFramework.Blazor)
+        if (AppTemplateBase.IsAppTemplate(projectArgs.TemplateName) && projectArgs.UiFramework is UiFramework.Blazor or UiFramework.MauiBlazor)
         {
-            Logger.LogInformation("Generating bundles for Blazor Wasm...");
+            var isWebassembly = projectArgs.UiFramework == UiFramework.Blazor;
+            var message = isWebassembly ? "Generating bundles for Blazor Wasm" : "Generating bundles for MAUI Blazor";
+            Logger.LogInformation($"{message}...");
 
             await EventBus.PublishAsync(new ProjectCreationProgressEvent
             {
-                Message = "Generating bundles for Blazor Wasm"
+                Message = message
             }, false);
 
             var directory = Path.GetDirectoryName(
-                Directory.GetFiles(projectArgs.OutputFolder, "*.Blazor.csproj", SearchOption.AllDirectories).First()
+                Directory.GetFiles(projectArgs.OutputFolder, isWebassembly? "*.Blazor.csproj" :"*.MauiBlazor.csproj", SearchOption.AllDirectories).First()
                 );
             
-            await _bundlingService.BundleAsync(directory, true);
+            await _bundlingService.BundleAsync(directory, true, projectType: isWebassembly ? BundlingConsts.WebAssembly : BundlingConsts.MauiBlazor);
         }
     }
 
@@ -526,7 +533,7 @@ public abstract class ProjectCreationCommandBase
         }
     }
 
-    protected virtual UiFramework GetUiFramework(CommandLineArgs commandLineArgs)
+    protected virtual UiFramework GetUiFramework(CommandLineArgs commandLineArgs, string template = "app")
     {
         if (commandLineArgs.Options.ContainsKey("no-ui"))
         {
@@ -549,6 +556,8 @@ public abstract class ProjectCreationCommandBase
                 return UiFramework.Blazor;
             case "blazor-server":
                 return UiFramework.BlazorServer;
+            case "maui-blazor" when template == AppProTemplate.TemplateName:
+                return UiFramework.MauiBlazor;
             default:
                 throw new CliUsageException(ExceptionMessageHelper.GetInvalidOptionExceptionMessage("UI Framework"));
         }
@@ -667,6 +676,27 @@ public abstract class ProjectCreationCommandBase
         }
     }
 
+    protected void ConfigureAngularJsonForThemeSelection(ProjectBuildArgs projectArgs)
+    {
+        if (projectArgs.TemplateName == ModuleTemplate.TemplateName)
+        {
+            return;
+        }
+                
+        if (projectArgs.Theme.HasValue && projectArgs.UiFramework == UiFramework.Angular)
+        {
+            var angularFolderPath = projectArgs.TemplateName == MicroserviceProTemplate.TemplateName
+                ? projectArgs.OutputFolder.EnsureEndsWith(Path.DirectorySeparatorChar) + "apps" + Path.DirectorySeparatorChar + "angular"
+                : projectArgs.OutputFolder.EnsureEndsWith(Path.DirectorySeparatorChar) + "angular";
+
+            AngularThemeConfigurer.Configure(new AngularThemeConfigurationArgs(
+                theme: projectArgs.Theme.Value,
+                projectName: projectArgs.SolutionName.FullName,
+                angularFolderPath: angularFolderPath
+            ));
+        }
+    }
+
     public static class Options
     {
         public static class Template
@@ -748,6 +778,12 @@ public abstract class ProjectCreationCommandBase
         {
             public const string Short = "sib";
             public const string Long = "skip-installing-libs";
+        }
+
+        public static class SkipBundling
+        {
+            public const string Short = "sb";
+            public const string Long = "skip-bundling";
         }
 
         public static class Tiered

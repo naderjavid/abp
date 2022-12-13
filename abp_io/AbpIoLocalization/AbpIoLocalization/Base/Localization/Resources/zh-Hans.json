@@ -142,7 +142,7 @@
     "DomainDrivenDesign": "领域驱动设计",
     "CrossCuttingConcerns": "横切关注点",
     "AbpCommunity": "ABP 社区",
-    "Footer_GithubStarCount": "{0} GitHub Stars",
+    "Footer_GithubStarCount": "{0} GitHub 上的星星",
     "Footer_NugetDownloadCount": "{0} NuGet 下载量",
     "AbpDescription": "ABP 是一个开源应用程序框架，专注于基于 AspNet Core 的 Web 应用程序开发。 Don't repeat yourself，专注于自己的业务代码。",
     "Layout_AbpFramework_MetaTitle": "ABP 框架 - 开源 Web 应用程序框架",
@@ -164,6 +164,9 @@
     "Error_Page_500_Description_1": "我们会自动跟踪这些错误，但如果问题仍然存在，请随时 <br /> 联系我们。 与此同时，尝试刷新。",
     "Error_Page_500_Description_2": "通过 <a href=\"mailto:info@abp.io\" target=\"_blank\">info@abp.io</a> 与我们联系。",
     "Books": "书籍",
+    "ABPDiscordServer": "ABP Discord 服务器",
+    "ABPCommunityTalks": "ABP社区讲话",
+    "ABPCommunityPosts": "ABP社区文章",
     "BuyAndGetMonths": "购买 12 个月，<span class=\"text-info\">获得 14 个月!</span>",
     "GetYourDeal": "得到你的交易",
     "BuyOrRenewLicense": "立即购买或续订许可证并额外获得 2 个月！",
@@ -176,6 +179,10 @@
     "Post": "邮政",
     "ExploreTheContentsCreatedByTheCoreABPTeamAndTheABPCommunity": "探索核心 ABP 团队和 ABP 社区创建的内容。",
     "WelcomeFallCampaign": "欢迎秋季活动！",
-    "GiveAwayForNewPurchases": "新购买将赠送应用程序开发课堂培训！"
+    "GiveAwayForNewPurchases": "新购买将赠送应用程序开发课堂培训！",
+    "BlackFriday": "<strong>黑色</strong> <span>星期五</span>",
+    "ValidForExistingCustomers": "也适用于 <br> 现有用户!",
+    "CampaignBetweenDates": "从 {0} <br>至 {1}",
+    "SaveUpTo": "<span>最多节省</span> 至<strong>${0}K</strong>"
   }
 }

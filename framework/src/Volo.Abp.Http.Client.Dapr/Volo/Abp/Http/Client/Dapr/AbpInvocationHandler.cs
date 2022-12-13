@@ -1,4 +1,5 @@
-﻿using Dapr.Client;
+﻿using System;
+using Dapr.Client;
 using Microsoft.Extensions.Options;
 using Volo.Abp.Dapr;
 using Volo.Abp.DependencyInjection;
@@ -9,6 +10,9 @@ public class AbpInvocationHandler : InvocationHandler, ITransientDependency
 {
     public AbpInvocationHandler(IOptions<AbpDaprOptions> daprOptions)
     {
-        DaprEndpoint = daprOptions.Value.HttpEndpoint;
+        if (!daprOptions.Value.HttpEndpoint.IsNullOrWhiteSpace())
+        {
+            DaprEndpoint = daprOptions.Value.HttpEndpoint;
+        }
     }
 }

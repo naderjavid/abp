@@ -1,0 +1,19 @@
+{
+  "name": "Volo.Abp.BackgroundJobs.DemoApp.Shared",
+  "hash": "9e602dad9d86df0c93429cd575abac19",
+  "contents": [
+    {
+      "namespace": "Volo.Abp.BackgroundJobs.DemoApp.Shared",
+      "dependsOnModules": [
+        {
+          "declaringAssemblyName": "Volo.Abp.BackgroundJobs.Abstractions",
+          "namespace": "Volo.Abp.BackgroundJobs",
+          "name": "AbpBackgroundJobsAbstractionsModule"
+        }
+      ],
+      "contentType": "abpModule",
+      "name": "DemoAppSharedModule",
+      "summary": null
+    }
+  ]
+}

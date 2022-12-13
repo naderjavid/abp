@@ -1,0 +1,68 @@
+{
+  "name": "Volo.Blogging.MongoDB",
+  "hash": "ade62006b3e34bc395a3b036fdc98b0b",
+  "contents": [
+    {
+      "namespace": "Volo.Blogging.MongoDB",
+      "dependsOnModules": [
+        {
+          "declaringAssemblyName": "Volo.Blogging.Domain",
+          "namespace": "Volo.Blogging",
+          "name": "BloggingDomainModule"
+        },
+        {
+          "declaringAssemblyName": "Volo.Abp.MongoDB",
+          "namespace": "Volo.Abp.MongoDB",
+          "name": "AbpMongoDbModule"
+        },
+        {
+          "declaringAssemblyName": "Volo.Abp.Users.MongoDB",
+          "namespace": "Volo.Abp.Users.MongoDB",
+          "name": "AbpUsersMongoDbModule"
+        }
+      ],
+      "contentType": "abpModule",
+      "name": "BloggingMongoDbModule",
+      "summary": null
+    },
+    {
+      "namespace": "Volo.Blogging.MongoDB",
+      "connectionStringName": "Blogging",
+      "databaseCollections": [
+        {
+          "entityFullName": "Volo.Blogging.Blogs.Blog",
+          "contentType": "databaseCollection",
+          "name": "BlgBlogs",
+          "summary": null
+        },
+        {
+          "entityFullName": "Volo.Blogging.Comments.Comment",
+          "contentType": "databaseCollection",
+          "name": "BlgComments",
+          "summary": null
+        },
+        {
+          "entityFullName": "Volo.Blogging.Tagging.Tag",
+          "contentType": "databaseCollection",
+          "name": "BlgTags",
+          "summary": null
+        },
+        {
+          "entityFullName": "Volo.Blogging.Posts.Post",
+          "contentType": "databaseCollection",
+          "name": "BlgPosts",
+          "summary": null
+        },
+        {
+          "entityFullName": "Volo.Blogging.Users.BlogUser",
+          "contentType": "databaseCollection",
+          "name": "BlgUsers",
+          "summary": null
+        }
+      ],
+      "contentType": "mongoDbContext",
+      "name": "BloggingMongoDbContext",
+      "summary": null
+    }
+  ]
+}

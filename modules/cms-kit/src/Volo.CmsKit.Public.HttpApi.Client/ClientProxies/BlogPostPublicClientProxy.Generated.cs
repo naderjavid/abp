@@ -2,8 +2,11 @@
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Http.Client;
+using Volo.Abp.Http.Modeling;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Http.Client.ClientProxying;
+using Volo.CmsKit.Public.Blogs;
 using Volo.CmsKit.Contents;
 using Volo.CmsKit.Users;
 
@@ -43,6 +46,14 @@ public partial class BlogPostPublicClientProxy : ClientProxyBase<IBlogPostPublic
     public virtual async Task<CmsUserDto> GetAuthorHasBlogPostAsync(Guid id)
     {
         return await RequestAsync<CmsUserDto>(nameof(GetAuthorHasBlogPostAsync), new ClientProxyRequestTypeValue
+        {
+            { typeof(Guid), id }
+        });
+    }
+
+    public virtual async Task DeleteAsync(Guid id)
+    {
+        await RequestAsync(nameof(DeleteAsync), new ClientProxyRequestTypeValue
         {
             { typeof(Guid), id }
         });

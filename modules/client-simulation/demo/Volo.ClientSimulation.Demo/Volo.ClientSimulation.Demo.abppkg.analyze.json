@@ -1,0 +1,29 @@
+{
+  "name": "Volo.ClientSimulation.Demo",
+  "hash": "477278ba5400dc02706ed405ae684d2e",
+  "contents": [
+    {
+      "namespace": "Volo.ClientSimulation.Demo",
+      "dependsOnModules": [
+        {
+          "declaringAssemblyName": "Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic",
+          "namespace": "Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic",
+          "name": "AbpAspNetCoreMvcUiBasicThemeModule"
+        },
+        {
+          "declaringAssemblyName": "Volo.Abp.Autofac",
+          "namespace": "Volo.Abp.Autofac",
+          "name": "AbpAutofacModule"
+        },
+        {
+          "declaringAssemblyName": "Volo.ClientSimulation.Web",
+          "namespace": "Volo.ClientSimulation",
+          "name": "ClientSimulationWebModule"
+        }
+      ],
+      "contentType": "abpModule",
+      "name": "ClientSimulationDemoModule",
+      "summary": null
+    }
+  ]
+}

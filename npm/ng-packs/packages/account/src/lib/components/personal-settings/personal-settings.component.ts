@@ -1,10 +1,12 @@
 import { ProfileDto, ProfileService } from '@abp/ng.account.core/proxy';
-import { ToasterService } from '@abp/ng.theme.shared';
-import { Component, Injector, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { Confirmation, ConfirmationService, ToasterService } from '@abp/ng.theme.shared';
+import { Component, Inject, Injector, OnInit, ViewEncapsulation } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { finalize, filter } from 'rxjs/operators';
 import { Account } from '../../models/account';
 import { ManageProfileStateService } from '../../services/manage-profile.state.service';
+import { AuthService } from '@abp/ng.core';
+import { RE_LOGIN_CONFIRMATION_TOKEN } from '../../tokens';
 import {
   EXTENSIONS_IDENTIFIER,
   FormPropData,
@@ -31,15 +33,19 @@ export class PersonalSettingsComponent
 {
   selected: ProfileDto;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   inProgress: boolean;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toasterService: ToasterService,
     private profileService: ProfileService,
     private manageProfileState: ManageProfileStateService,
+    private readonly authService: AuthService,
+    private confirmationService: ConfirmationService,
+    @Inject(RE_LOGIN_CONFIRMATION_TOKEN)
+    private isPersonalSettingsChangedConfirmationActive: boolean,
     protected injector: Injector,
   ) {}
 
@@ -58,6 +64,7 @@ export class PersonalSettingsComponent
 
   submit() {
     if (this.form.invalid) return;
+    const isLogOutConfirmMessageVisible = this.isLogoutConfirmMessageActive();
     this.inProgress = true;
     this.profileService
       .update(this.form.value)
@@ -65,6 +72,27 @@ export class PersonalSettingsComponent
       .subscribe(profile => {
         this.manageProfileState.setProfile(profile);
         this.toasterService.success('AbpAccount::PersonalSettingsSaved', 'Success', { life: 5000 });
+        if (isLogOutConfirmMessageVisible) {
+          this.showLogoutConfirmMessage();
+        }
       });
+  }
+
+  logoutConfirmation = () => {
+    this.authService.logout().subscribe();
+  };
+
+  private isLogoutConfirmMessageActive() {
+    return this.isPersonalSettingsChangedConfirmationActive;
+  }
+
+  private showLogoutConfirmMessage() {
+    this.confirmationService
+      .info(
+        'AbpAccount::PersonalSettingsChangedConfirmationModalDescription',
+        'AbpAccount::PersonalSettingsChangedConfirmationModalTitle',
+      )
+      .pipe(filter(status => status === Confirmation.Status.confirm))
+      .subscribe(this.logoutConfirmation);
   }
 }

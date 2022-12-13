@@ -3,8 +3,30 @@ $(function () {
     var service = window.volo.docs.admin.documentsAdmin;
 
     var getFormattedDate = function ($datePicker) {
-        return $datePicker.data().datepicker.getFormattedDate('yyyy-mm-dd');
+        return $datePicker.data('date');
     };
+
+	moment.localeData().preparse = (s)=>s;
+    moment.localeData().postformat = (s)=>s;
+	
+    $('.singledatepicker').daterangepicker({
+        "singleDatePicker": true,
+        "showDropdowns": true,
+        "autoUpdateInput": false,
+        "autoApply": true,
+        "opens": "center",
+        "drops": "auto",
+        "minYear": 1901,
+        "maxYear": 2199,
+    });
+
+    $('.singledatepicker').attr('autocomplete', 'off');
+
+    $('.singledatepicker').on('apply.daterangepicker', function (ev, picker) {
+        $(this).val(picker.startDate.format('l'));
+        $(this).data('date', picker.startDate.locale('en').format('YYYY-MM-DD'));
+    });
+
 
     var comboboxItems = [];
     
@@ -105,6 +127,7 @@ $(function () {
             $combobox.append($('<option/>').val(item[key]).text(item[key]));
         }
     }
+
 
     var getFilter = function () {
         return {

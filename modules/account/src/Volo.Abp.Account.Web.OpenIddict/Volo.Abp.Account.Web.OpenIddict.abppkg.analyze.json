@@ -1,0 +1,24 @@
+{
+  "name": "Volo.Abp.Account.Web.OpenIddict",
+  "hash": "d6d40cc3e0a4aabd4841ddcdd7190f59",
+  "contents": [
+    {
+      "namespace": "Volo.Abp.Account.Web",
+      "dependsOnModules": [
+        {
+          "declaringAssemblyName": "Volo.Abp.Account.Web",
+          "namespace": "Volo.Abp.Account.Web",
+          "name": "AbpAccountWebModule"
+        },
+        {
+          "declaringAssemblyName": "Volo.Abp.OpenIddict.AspNetCore",
+          "namespace": "Volo.Abp.OpenIddict",
+          "name": "AbpOpenIddictAspNetCoreModule"
+        }
+      ],
+      "contentType": "abpModule",
+      "name": "AbpAccountWebOpenIddictModule",
+      "summary": null
+    }
+  ]
+}
