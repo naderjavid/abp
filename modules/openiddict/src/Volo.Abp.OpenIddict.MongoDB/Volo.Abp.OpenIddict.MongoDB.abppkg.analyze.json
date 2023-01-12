@@ -1,6 +1,6 @@
 {
   "name": "Volo.Abp.OpenIddict.MongoDB",
-  "hash": "605bdf15cc176ea593e6963706ed6baa",
+  "hash": "3d981831e0c98017360663dad304da33",
   "contents": [
     {
       "namespace": "Volo.Abp.OpenIddict.MongoDB",

@@ -1,6 +1,6 @@
 {
   "name": "Volo.CmsKit.MongoDB",
-  "hash": "ab14c521e16a9ae08b59c30a345873b1",
+  "hash": "f073ca44e4a4052938a4a7274938ef01",
   "contents": [
     {
       "namespace": "Volo.CmsKit.MongoDB",
@@ -36,9 +36,9 @@
           "summary": null
         },
         {
-          "entityFullName": "Volo.CmsKit.Comments.Comment",
+          "entityFullName": "Volo.CmsKit.Blogs.BlogFeature",
           "contentType": "databaseCollection",
-          "name": "CmsComments",
+          "name": "CmsBlogFeatures",
           "summary": null
         },
         {
@@ -48,9 +48,9 @@
           "summary": null
         },
         {
-          "entityFullName": "Volo.CmsKit.Blogs.BlogPost",
+          "entityFullName": "Volo.CmsKit.Pages.Page",
           "contentType": "databaseCollection",
-          "name": "CmsBlogPosts",
+          "name": "CmsPages",
           "summary": null
         },
         {
@@ -60,15 +60,9 @@
           "summary": null
         },
         {
-          "entityFullName": "Volo.CmsKit.Blogs.BlogFeature",
+          "entityFullName": "Volo.CmsKit.GlobalResources.GlobalResource",
           "contentType": "databaseCollection",
-          "name": "CmsBlogFeatures",
-          "summary": null
-        },
-        {
-          "entityFullName": "Volo.CmsKit.Blogs.Blog",
-          "contentType": "databaseCollection",
-          "name": "CmsBlogs",
+          "name": "CmsGlobalResources",
           "summary": null
         },
         {
@@ -78,15 +72,21 @@
           "summary": null
         },
         {
-          "entityFullName": "Volo.CmsKit.GlobalResources.GlobalResource",
+          "entityFullName": "Volo.CmsKit.Blogs.BlogPost",
           "contentType": "databaseCollection",
-          "name": "CmsGlobalResources",
+          "name": "CmsBlogPosts",
           "summary": null
         },
         {
           "entityFullName": "Volo.CmsKit.Ratings.Rating",
           "contentType": "databaseCollection",
           "name": "CmsRatings",
+          "summary": null
+        },
+        {
+          "entityFullName": "Volo.CmsKit.Blogs.Blog",
+          "contentType": "databaseCollection",
+          "name": "CmsBlogs",
           "summary": null
         },
         {
@@ -102,9 +102,9 @@
           "summary": null
         },
         {
-          "entityFullName": "Volo.CmsKit.Pages.Page",
+          "entityFullName": "Volo.CmsKit.Comments.Comment",
           "contentType": "databaseCollection",
-          "name": "CmsPages",
+          "name": "CmsComments",
           "summary": null
         }
       ],

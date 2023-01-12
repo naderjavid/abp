@@ -84,6 +84,7 @@ public abstract class ProjectCreationCommandBase
         {
             Logger.LogInformation("Preview: yes");
 
+#if !DEBUG
             var cliVersion = await CliService.GetCurrentCliVersionAsync(typeof(CliService).Assembly);
 
             if (!cliVersion.IsPrerelease)
@@ -92,6 +93,7 @@ public abstract class ProjectCreationCommandBase
                     "You can only create a new preview solution with preview CLI version." +
                     " Update your ABP CLI to the preview version.");
             }
+#endif
         }
 
         var pwa = commandLineArgs.Options.ContainsKey(Options.ProgressiveWebApp.Short);
@@ -691,7 +693,7 @@ public abstract class ProjectCreationCommandBase
 
             AngularThemeConfigurer.Configure(new AngularThemeConfigurationArgs(
                 theme: projectArgs.Theme.Value,
-                projectName: projectArgs.SolutionName.FullName,
+                projectName: projectArgs.SolutionName.ProjectName,
                 angularFolderPath: angularFolderPath
             ));
         }
