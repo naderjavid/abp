@@ -59,6 +59,13 @@ public class ObjectExtensionPropertyInfo : IHasNameWithLocalizableDisplayName, I
 
     [NotNull]
     public ExtensionPropertyLookupConfiguration Lookup { get; set; }
+    
+    /// <summary>
+    /// The Display order of the Property.
+    /// </summary>
+    public int Order { get; set; }
+
+    public ExtensionPropertyUI UI { get; set; }
 
     public ObjectExtensionPropertyInfo(
         [NotNull] ObjectExtensionInfo objectExtension,
@@ -76,10 +83,26 @@ public class ObjectExtensionPropertyInfo : IHasNameWithLocalizableDisplayName, I
         Attributes.AddRange(ExtensionPropertyHelper.GetDefaultAttributes(Type));
         DefaultValue = TypeHelper.GetDefaultValue(Type);
         Lookup = new ExtensionPropertyLookupConfiguration();
+        UI = new ExtensionPropertyUI();
     }
 
     public object GetDefaultValue()
     {
         return ExtensionPropertyHelper.GetDefaultValue(Type, DefaultValueFactory, DefaultValue);
+    }
+
+    public class ExtensionPropertyUI
+    {
+        public ExtensionPropertyUIEditModal EditModal { get; set; }
+
+        public ExtensionPropertyUI()
+        {
+            EditModal = new ExtensionPropertyUIEditModal();
+        }
+    }
+
+    public class ExtensionPropertyUIEditModal
+    {
+        public bool IsReadOnly { get; set; }
     }
 }

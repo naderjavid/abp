@@ -123,9 +123,11 @@ export class ErrorHandler {
   }
 
   private executeErrorHandler = (error: any) => {
-    const returnValue = this.httpErrorHandler(this.injector, error);
+    const errHandler = this.httpErrorHandler(this.injector, error);
+    const isObservable = errHandler instanceof Observable;
+    const response = isObservable ? errHandler : of(null);
 
-    return (returnValue instanceof Observable ? returnValue : of(null)).pipe(
+    return response.pipe(
       catchError(err => {
         this.handleError(err);
         return of(null);
@@ -138,6 +140,11 @@ export class ErrorHandler {
       key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
       defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
     };
+
+    if (err instanceof HttpErrorResponse && err.headers.get('Abp-Tenant-Resolve-Error')) {
+      this.authService.logout().subscribe();
+      return;
+    }
 
     if (err instanceof HttpErrorResponse && err.headers.get('_AbpErrorFormat')) {
       const confirmation$ = this.showErrorWithRequestBody(body);

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Grid;
 
 namespace Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
@@ -12,11 +14,16 @@ public class AbpDynamicFormTagHelper : AbpTagHelper<AbpDynamicFormTagHelper, Abp
     [HtmlAttributeName("abp-model")]
     public ModelExpression Model { get; set; }
 
+    [HtmlAttributeName("column-size")]
+    public ColumnSize ColumnSize { get; set; }
+
     public bool? SubmitButton { get; set; }
 
     public bool? RequiredSymbols { get; set; } = true;
 
     #region MvcFormTagHelperAttiributes
+    
+    private IDictionary<string, string> _routeValues;
 
     private const string ActionAttributeName = "asp-action";
     private const string AreaAttributeName = "asp-area";
@@ -53,7 +60,22 @@ public class AbpDynamicFormTagHelper : AbpTagHelper<AbpDynamicFormTagHelper, Abp
     public string Method { get; set; }
 
     [HtmlAttributeName(RouteValuesDictionaryName, DictionaryAttributePrefix = RouteValuesPrefix)]
-    public IDictionary<string, string> RouteValues { get; set; }
+    public IDictionary<string, string> RouteValues
+    {
+        get
+        {
+            if (_routeValues == null)
+            {
+                _routeValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            }
+
+            return _routeValues;
+        }
+        set
+        {
+            _routeValues = value;
+        }
+    }
 
     #endregion
 

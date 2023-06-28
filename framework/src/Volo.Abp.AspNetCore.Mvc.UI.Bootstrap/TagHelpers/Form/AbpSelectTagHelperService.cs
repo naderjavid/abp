@@ -56,6 +56,10 @@ public class AbpSelectTagHelperService : AbpTagHelperService<AbpSelectTagHelper>
         {
             output.TagName = "div";
             LeaveOnlyGroupAttributes(context, output);
+            if (TagHelper.FloatingLabel)
+            {
+                output.Attributes.AddClass("form-floating");
+            }
             output.Attributes.AddClass("mb-3");
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Content.SetHtmlContent(innerHtml);
@@ -183,7 +187,7 @@ public class AbpSelectTagHelperService : AbpTagHelperService<AbpSelectTagHelper>
             var label = new TagBuilder("label");
             label.AddCssClass("form-label");
             label.Attributes.Add("for", GetIdAttributeValue(selectTag));
-            label.InnerHtml.AppendHtml(TagHelper.Label);
+            label.InnerHtml.AppendHtml(_encoder.Encode(TagHelper.Label));
 
             return label.ToHtmlString() + GetRequiredSymbol(context, output);
         }
@@ -198,7 +202,9 @@ public class AbpSelectTagHelperService : AbpTagHelperService<AbpSelectTagHelper>
             return "";
         }
 
-        return TagHelper.AspFor.ModelExplorer.GetAttribute<RequiredAttribute>() != null ? "<span> * </span>" : "";
+        var isHaveRequiredAttribute = context.AllAttributes.Any(a => a.Name == "required");
+
+        return TagHelper.AspFor.ModelExplorer.GetAttribute<RequiredAttribute>() != null || isHaveRequiredAttribute ? "<span> * </span>" : "";
     }
 
     protected virtual void AddInfoTextId(TagHelperOutput inputTagHelperOutput)

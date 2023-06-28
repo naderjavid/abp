@@ -36,8 +36,12 @@ export class FormInputComponent extends AbstractNgModelComponent {
   @Input() label = '';
   @Input() labelClass = 'form-label';
   @Input() inputPlaceholder = '';
-  @Input() inputType = 'text';
-  @Input() inputStyle = '';
+  @Input() inputStyle:
+    | {
+        [klass: string]: any;
+      }
+    | null
+    | undefined;
   @Input() inputClass = 'form-control';
   @Output() formBlur = new EventEmitter<void>();
   @Output() formFocus = new EventEmitter<void>();

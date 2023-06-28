@@ -5,6 +5,7 @@ using OpenIddict.Server;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.Modularity;
+using Volo.Abp.OpenIddict.Scopes;
 using Volo.Abp.OpenIddict.WildcardDomains;
 using Volo.Abp.Security.Claims;
 
@@ -21,9 +22,9 @@ public class AbpOpenIddictAspNetCoreModule : AbpModule
     {
         AddOpenIddictServer(context.Services);
 
-        Configure<AbpOpenIddictClaimDestinationsOptions>(options =>
+        Configure<AbpOpenIddictClaimsPrincipalOptions>(options =>
         {
-            options.ClaimDestinationsProvider.Add<AbpDefaultOpenIddictClaimDestinationsProvider>();
+            options.ClaimsPrincipalHandlers.Add<AbpDefaultOpenIddictClaimsPrincipalHandler>();
         });
 
         Configure<RazorViewEngineOptions>(options =>
@@ -133,6 +134,7 @@ public class AbpOpenIddictAspNetCoreModule : AbpModule
                 }
 
                 builder.AddEventHandler(RemoveClaimsFromClientCredentialsGrantType.Descriptor);
+                builder.AddEventHandler(AttachScopes.Descriptor);
 
                 services.ExecutePreConfiguredActions(builder);
             });
