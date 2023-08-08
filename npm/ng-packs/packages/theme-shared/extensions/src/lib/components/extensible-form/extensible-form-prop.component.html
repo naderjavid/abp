@@ -7,7 +7,7 @@
     </ng-container>
   </ng-template>
 
-  <div [ngClass]="containerClassName" class="mb-3">
+  <div [ngClass]="containerClassName" class="mb-2">
     <ng-template ngSwitchCase="input">
       <ng-template [ngTemplateOutlet]="label"></ng-template>
       <input
@@ -154,7 +154,7 @@
       ></abp-password>
     </ng-template>
 
-    <small *ngIf="prop.formText" class="form-text text-muted">{{
+    <small *ngIf="prop.formText" class="text-muted d-block">{{
       prop.formText | abpLocalization
     }}</small>
   </div>
