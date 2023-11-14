@@ -29,7 +29,7 @@ import { NgxDatatableListDirective } from './directives/ngx-datatable-list.direc
 import { DocumentDirHandlerService } from './handlers/document-dir.handler';
 import { ErrorHandler } from './handlers/error.handler';
 import { RootParams } from './models/common';
-import { NG_BOOTSTRAP_CONFIG_PROVIDERS } from './providers';
+import { ERROR_HANDLERS_PROVIDERS, NG_BOOTSTRAP_CONFIG_PROVIDERS } from './providers';
 import { THEME_SHARED_ROUTE_PROVIDERS } from './providers/route.provider';
 import { THEME_SHARED_APPEND_CONTENT } from './tokens/append-content.token';
 import { HTTP_ERROR_CONFIG, httpErrorConfigFactory } from './tokens/http-error.token';
@@ -37,9 +37,10 @@ import { DateParserFormatter } from './utils/date-parser-formatter';
 import { CONFIRMATION_ICONS, DEFAULT_CONFIRMATION_ICONS } from './tokens/confirmation-icons.token';
 import { PasswordComponent } from './components/password/password.component';
 import { CardModule } from './components/card/card.module';
-import { AbpVisibleDirective } from './directives';
+import { AbpVisibleDirective, DisabledDirective } from './directives';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormCheckboxComponent } from './components/checkbox/checkbox.component';
+import { tenantNotFoundProvider } from './providers/tenant-not-found.provider';
 
 const declarationsWithExports = [
   BreadcrumbComponent,
@@ -58,7 +59,7 @@ const declarationsWithExports = [
   ModalCloseDirective,
   AbpVisibleDirective,
   FormInputComponent,
-  FormCheckboxComponent
+  FormCheckboxComponent,
 ];
 
 @NgModule({
@@ -69,7 +70,7 @@ const declarationsWithExports = [
     NgbPaginationModule,
     EllipsisModule,
     CardModule,
-
+    DisabledDirective
   ],
   declarations: [...declarationsWithExports, HttpErrorWrapperComponent],
   exports: [
@@ -77,11 +78,14 @@ const declarationsWithExports = [
     EllipsisModule,
     NgxValidateCoreModule,
     CardModule,
-    ...declarationsWithExports
+    DisabledDirective,
+    NgxDatatableListDirective,
+    NgxDatatableDefaultDirective,
+    ...declarationsWithExports,
   ],
   providers: [DatePipe],
 })
-export class BaseThemeSharedModule { }
+export class BaseThemeSharedModule {}
 
 @NgModule({
   imports: [BaseThemeSharedModule],
@@ -144,6 +148,8 @@ export class ThemeSharedModule {
             ...(confirmationIcons || {}),
           },
         },
+        tenantNotFoundProvider,
+        ERROR_HANDLERS_PROVIDERS,
       ],
     };
   }

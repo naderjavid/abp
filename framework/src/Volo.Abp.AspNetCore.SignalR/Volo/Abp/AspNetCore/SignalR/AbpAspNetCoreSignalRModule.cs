@@ -37,6 +37,7 @@ public class AbpAspNetCoreSignalRModule : AbpModule
         var routePatterns = new List<string> { "/signalr-hubs" };
         var signalRServerBuilder = context.Services.AddSignalR(options =>
         {
+            options.DisableImplicitFromServicesParameters = true;
             options.AddFilter<AbpHubContextAccessorHubFilter>();
             options.AddFilter<AbpAuthenticationHubFilter>();
             options.AddFilter<AbpAuditHubFilter>();
@@ -77,7 +78,7 @@ public class AbpAspNetCoreSignalRModule : AbpModule
         {
             foreach (var routePattern in routePatterns)
             {
-                options.IgnoredUrls.AddIfNotContains(x => routePattern.StartsWith(x), () => routePattern);
+                options.IgnoredUrls.AddIfNotContains(x => routePattern.StartsWith(x, StringComparison.OrdinalIgnoreCase), () => routePattern);
             }
         });
 

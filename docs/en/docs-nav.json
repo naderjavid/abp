@@ -1153,6 +1153,10 @@
                 {
                   "text": "Content Security Strategy",
                   "path": "UI/Angular/Content-Security-Strategy.md"
+                },
+                {
+                  "text":"Abp Window Service",
+                  "path":"UI/Angular/Abp-Window-Service.md"
                 }
               ]
             },
@@ -1187,6 +1191,10 @@
                 {
                   "text": "Modifying the Menu",
                   "path": "UI/Angular/Modifying-the-Menu.md"
+                },
+                {
+                  "text": "Sorting Navigation Elements",
+                  "path": "UI/Angular/Sorting-Navigation-Elements.md"
                 },
                 {
                   "text": "Component Replacement",
@@ -1355,6 +1363,10 @@
       "text": "Deployment",
       "path": "Deployment/Index.md",
       "items": [
+        {
+          "text": "Configuring SSL certificate(HTTPS)",
+          "path": "Deployment/SSL.md"
+        },
         {
           "text": "Configuring OpenIddict",
           "path": "Deployment/Configuring-OpenIddict.md"

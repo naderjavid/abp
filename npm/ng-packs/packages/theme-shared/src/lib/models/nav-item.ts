@@ -1,5 +1,5 @@
 import { Injector, Type } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface Badge {
   count?: number | Observable<number>;
@@ -18,6 +18,7 @@ export class NavItem {
   order?: number;
   requiredPolicy?: string;
   visible?: NavBarPropPredicate<NavItem>;
+  icon?: string;
   constructor(props: Partial<NavItem>) {
     Object.assign(this, props);
   }

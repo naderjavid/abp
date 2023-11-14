@@ -229,12 +229,27 @@ public class VoloNugetPackagesVersionUpdater : ITransientDependency
                     {
                         if ((includeNightlyPreviews || (currentVersion.Contains("-preview") && !switchToStable)) && !includeReleaseCandidates)
                         {
-                            var latestVersion = latestMyGetVersion == null || isLeptonXPackage ?
-                                await GetLatestVersionFromMyGet(packageId) : latestMyGetVersion;
-
-                            if(latestVersion == null && isLeptonXPackage) //leptonx-pro package
+                            string latestVersion;
+                            if(isLeptonXPackage)
                             {
-                                latestVersion = await GetLatestVersionFromMyGet("Volo.Abp.AspNetCore.Components.Server.LeptonXLiteTheme", isNightly: includeNightlyPreviews);
+                                var leptonXPackageName = packageId;
+                                if(includeNightlyPreviews) 
+                                {
+                                    //use LeptonX Lite package as the package name to be able to get the package version from the 'abp-nightly' feed.
+                                    leptonXPackageName = "Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite";
+                                }
+
+                                latestVersion = (await _packageVersionCheckerService.GetLatestVersionOrNullAsync(leptonXPackageName, includeNightlyPreviews, includeReleaseCandidates))?.Version?.ToString();
+                            }
+                            else
+                            {
+                                latestVersion = latestMyGetVersion == null ? await GetLatestVersionFromMyGet(packageId) : latestMyGetVersion;
+                            }
+
+                            if(latestVersion == null)
+                            {
+                                Logger.LogWarning("Package: {0} could not be updated. Please manually update the package version yourself to prevent version mismatches.", packageId);
+                                continue;
                             }
 
                             if (currentVersion != latestVersion)
@@ -288,10 +303,10 @@ public class VoloNugetPackagesVersionUpdater : ITransientDependency
         return await Task.FromResult(content);
     }
 
-    private async Task<string> GetLatestVersionFromMyGet(string packageId, bool isNightly = false)
+    private async Task<string> GetLatestVersionFromMyGet(string packageId)
     {
         var myGetPack = await _myGetPackageListFinder.GetPackagesAsync();
 
-        return myGetPack.Packages.FirstOrDefault(p => p.Id == packageId)?.Versions.LastOrDefault(x => isNightly ? x.Contains("-preview") : true);
+        return myGetPack.Packages.FirstOrDefault(p => p.Id == packageId)?.Versions.LastOrDefault();
     }
 }
