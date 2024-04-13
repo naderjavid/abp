@@ -2,7 +2,7 @@
   "culture": "vi",
   "texts": {
     "Settings": "Cài đặt",
-    "SuccessfullySaved": "Lưu thành công",
+    "SavedSuccessfully": "Lưu thành công",
     "Permission:SettingManagement": "Cài đặt quản lý",
     "Permission:Emailing": "Gửi email",
     "Permission:EmailingTest": "Kiểm tra gửi email",
@@ -17,7 +17,7 @@
     "SuccessfullySent": "Đã gửi thành công",
     "Send": "Gửi",
     "Menu:Emailing": "Gửi email",
-    "Menu:TimeZone": "Múi giờ",
+    "Menu:TimeZone": "Múi Giờ",
     "DisplayName:Timezone": "Múi giờ",
     "TimezoneHelpText": "Cài đặt này được sử dụng cho toàn bộ ứng dụng hoặc dựa trên đối tượng thuê.",
     "SmtpHost": "Tổ chức",

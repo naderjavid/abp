@@ -2,7 +2,7 @@
   "culture": "pl-PL",
   "texts": {
     "Settings": "Ustawienia",
-    "SuccessfullySaved": "Zapisano pomyślnie",
+    "SavedSuccessfully": "Zapisano pomyślnie",
     "Permission:SettingManagement": "Zarządzanie ustawieniami",
     "Permission:Emailing": "Wysyłanie e-maili",
     "Permission:EmailingTest": "Test wysyłania e-maili",
@@ -17,7 +17,7 @@
     "SuccessfullySent": "Pomyślnie wysłane",
     "Send": "Wysłać",
     "Menu:Emailing": "Wysyłanie e-maili",
-    "Menu:TimeZone": "Strefa czasowa",
+    "Menu:TimeZone": "Strefa Czasowa",
     "DisplayName:Timezone": "Strefa czasowa",
     "TimezoneHelpText": "To ustawienie jest używane w przypadku całej aplikacji lub opartej na dzierżawie.",
     "SmtpHost": "Gospodarz",

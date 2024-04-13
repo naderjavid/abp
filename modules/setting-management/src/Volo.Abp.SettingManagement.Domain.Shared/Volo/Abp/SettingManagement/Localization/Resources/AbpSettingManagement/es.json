@@ -2,7 +2,7 @@
   "culture": "es",
   "texts": {
     "Settings": "Configuraciones",
-    "SuccessfullySaved": "Guardado correctamente",
+    "SavedSuccessfully": "Guardado correctamente",
     "Permission:SettingManagement": "Configuraciones de correo electronico",
     "Permission:Emailing": "Configuración",
     "Permission:EmailingTest": "prueba de correo electrónico",
@@ -17,7 +17,7 @@
     "SuccessfullySent": "Enviado exitosamente",
     "Send": "Enviar",
     "Menu:Emailing": "Configuración",
-    "Menu:TimeZone": "Zona horaria",
+    "Menu:TimeZone": "Zona Horaria",
     "DisplayName:Timezone": "Zona horaria",
     "TimezoneHelpText": "Esta configuración se utiliza para toda la aplicación o basada en inquilinos.",
     "SmtpHost": "Host",

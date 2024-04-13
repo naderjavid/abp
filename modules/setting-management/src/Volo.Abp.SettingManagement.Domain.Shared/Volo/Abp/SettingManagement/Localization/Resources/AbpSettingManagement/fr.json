@@ -2,7 +2,7 @@
   "culture": "fr",
   "texts": {
     "Settings": "Paramètres",
-    "SuccessfullySaved": "Enregistré avec succès",
+    "SavedSuccessfully": "Enregistré avec succès",
     "Permission:SettingManagement": "Gestion des paramètres",
     "Permission:Emailing": "Envoi par e-mail",
     "Permission:EmailingTest": "Test d&#39;emailing",
@@ -17,7 +17,7 @@
     "SuccessfullySent": "Envoyé avec succès",
     "Send": "Envoyer",
     "Menu:Emailing": "Envoi par e-mail",
-    "Menu:TimeZone": "Fuseau horaire",
+    "Menu:TimeZone": "Fuseau Horaire",
     "DisplayName:Timezone": "Fuseau horaire",
     "TimezoneHelpText": "Ce paramètre est utilisé à l’échelle de l’application ou basé sur le client.",
     "SmtpHost": "Hôte",

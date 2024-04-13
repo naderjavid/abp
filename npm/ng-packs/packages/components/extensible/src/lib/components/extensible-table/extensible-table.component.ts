@@ -1,24 +1,4 @@
 import {
-  ABP,
-  ConfigStateService,
-  CoreModule,
-  getShortDateFormat,
-  getShortDateShortTimeFormat,
-  getShortTimeFormat,
-  ListService,
-  LocalizationModule,
-  PermissionDirective,
-  PermissionService,
-} from '@abp/ng.core';
-import {
-  AsyncPipe,
-  formatDate,
-  NgComponentOutlet,
-  NgFor,
-  NgIf,
-  NgTemplateOutlet,
-} from '@angular/common';
-import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -32,8 +12,31 @@ import {
   TemplateRef,
   TrackByFunction,
 } from '@angular/core';
+import { AsyncPipe, formatDate, NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
+import {
+  ABP,
+  ConfigStateService,
+  getShortDateFormat,
+  getShortDateShortTimeFormat,
+  getShortTimeFormat,
+  ListService,
+  LocalizationModule,
+  PermissionDirective,
+  PermissionService,
+} from '@abp/ng.core';
+import {
+  AbpVisibleDirective,
+  NgxDatatableDefaultDirective,
+  NgxDatatableListDirective,
+} from '@abp/ng.theme.shared';
+
 import { ePropType } from '../../enums/props.enum';
 import { EntityActionList } from '../../models/entity-actions';
 import { EntityProp, EntityPropList } from '../../models/entity-props';
@@ -44,14 +47,7 @@ import {
   EXTENSIONS_IDENTIFIER,
   PROP_DATA_STREAM,
 } from '../../tokens/extensions.token';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { GridActionsComponent } from '../grid-actions/grid-actions.component';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import {
-  AbpVisibleDirective,
-  NgxDatatableDefaultDirective,
-  NgxDatatableListDirective,
-} from '@abp/ng.theme.shared';
 
 const DEFAULT_ACTIONS_COLUMN_WIDTH = 150;
 

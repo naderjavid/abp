@@ -234,7 +234,7 @@ public class SolutionModuleAdder : ITransientDependency
             appRoutingModuleFileContent = Regex.Replace(appRoutingModuleFileContent, "Routes\\s*=\\s*\\[",
                 "Routes = [" + Environment.NewLine +
                 "  " + "{" + Environment.NewLine +
-                "    " + "path: '" + moduleName.ToLower() + "'," + Environment.NewLine +
+                "    " + "path: '" + moduleName.ToKebabCase() + "'," + Environment.NewLine +
                 "    " + "loadChildren: () => " + $"import('{angularPackage.Name.EnsureStartsWith('@')}').then(m => m.{moduleName}Module.forLazy())," + Environment.NewLine +
                 "  " + "},");
         }
@@ -594,10 +594,11 @@ public class SolutionModuleAdder : ITransientDependency
     {
         var args = new CommandLineArgs("new", module.Name);
 
-        args.Options.Add("t", newProTemplate ? ModuleProTemplate.TemplateName : ModuleTemplate.TemplateName);
-        args.Options.Add("v", version);
-        args.Options.Add("o", Path.Combine(modulesFolderInSolution, module.Name));
-        args.Options.Add("sib", true.ToString());
+        args.Options.Add(ProjectCreationCommandBase.Options.Template.Short, newProTemplate ? ModuleProTemplate.TemplateName : ModuleTemplate.TemplateName);
+        args.Options.Add(ProjectCreationCommandBase.Options.Version.Short, version);
+        args.Options.Add(ProjectCreationCommandBase.Options.OutputFolder.Short, Path.Combine(modulesFolderInSolution, module.Name));
+        args.Options.Add(ProjectCreationCommandBase.Options.SkipInstallingLibs.Short, true.ToString());
+        args.Options.Add(ProjectCreationCommandBase.Options.SkipBundling.Long, true.ToString());
 
         await NewCommand.ExecuteAsync(args);
     }
@@ -624,7 +625,7 @@ public class SolutionModuleAdder : ITransientDependency
     private async Task AddNugetAndNpmReferences(ModuleWithMastersInfo module, string[] projectFiles,
         bool useDotnetCliToInstall)
     {
-        var webPackagesWillBeAddedToBlazorServerProject = SouldWebPackagesBeAddedToBlazorServerProject(module, projectFiles);
+        var webPackagesWillBeAddedToBlazorServerProject = ShouldWebPackagesBeAddedToBlazorServerProject(module, projectFiles);
 
         await PublishEventAsync(3, "Adding nuget package references");
         foreach (var nugetPackage in module.NugetPackages)
@@ -686,7 +687,7 @@ public class SolutionModuleAdder : ITransientDependency
         }
     }
 
-    private static bool SouldWebPackagesBeAddedToBlazorServerProject(ModuleWithMastersInfo module, string[] projectFiles)
+    private static bool ShouldWebPackagesBeAddedToBlazorServerProject(ModuleWithMastersInfo module, string[] projectFiles)
     {
         var blazorProject = projectFiles.FirstOrDefault(p => p.EndsWith(".Blazor.csproj"));
 
