@@ -1139,6 +1139,7 @@
     "PurchaseDevelopers": "geliştirici",
     "RemoveBasket": "Sepetten kaldır",
     "TrainingPack": "Eğitim paketi",
-    "TrainingPackDiscount": "Eğitim paketi indirimi"
+    "TrainingPackDiscount": "Eğitim paketi indirimi",
+    "LinkExpiredMessage": "Ödeme bağlantısının süresi doldu! Bağlantıyı güncellemek için <a href='mailto:sales@volosoft.com'>sales@volosoft.com</a> adresinden bizimle iletişime geçin veya iletişim sayfasına gitmek için  <a href='https://commercial.abp.io/contact'>buraya</a> tıklayın."
   }
 }

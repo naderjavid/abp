@@ -1209,6 +1209,8 @@
     "PreBuiltApplicationModulesTitle": "Pre-Built Application <span class=\"gradient-commercial\">Modules</span>",
     "RegisterDemo": "Register",
     "TrainingDescription": "We are offering the following training packages for who want to get expertise on the ABP Framework and the ABP Commercial.",
-    "PurchaseDevelopers": "developers"
+    "PurchaseDevelopers": "developers",
+    "LinkExpiredMessage": "The payment link has expired! Contact us at <a href='mailto:sales@volosoft.com'>sales@volosoft.com</a> to update the link or <a href='https://commercial.abp.io/contact'>click here</a> to navigate to the contact page."
+
   }
 }
