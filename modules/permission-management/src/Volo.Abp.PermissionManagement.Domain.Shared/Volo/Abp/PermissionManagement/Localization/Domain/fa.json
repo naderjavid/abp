@@ -5,6 +5,7 @@
     "OnlyProviderPermissons": "فقط این ارائه دهنده",
     "All": "همه",
     "SelectAllInAllTabs": "اعطای همه مجوزها",
-    "SelectAllInThisTab": "انتخاب همه"
+    "SelectAllInThisTab": "انتخاب همه",
+    "SaveWithoutAnyPermissionsWarningMessage": "آیا مطمئن هستید که می خواهید بدون هیچ مجوزی ذخیره کنید؟"
   }
 }
