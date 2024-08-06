@@ -1,6 +1,7 @@
 {
   "culture": "fa",
   "texts": {
+    "Volo.Abp.TenantManagement:DuplicateTenantName": "نام مستاجر در حال حاضر موجود میباشد: {Name}",
     "Menu:TenantManagement": "مدیریت تننت",
     "Tenants": "تننت ها",
     "NewTenant": "ایجاد تننت جدید",
